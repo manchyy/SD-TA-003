@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Command R65",
+    "switch": "Tactile",
+    "price": "120",
+    "img": "https://keygem.com/cdn/shop/files/DSC03867.jpg?v=1736931358&width=2560"
+  },
+  {
+    "name": "IQUNIX EZ60",
+    "switch": "Linear",
+    "price": "250",
+    "img": "https://keygem.com/cdn/shop/files/E60.847.png?v=1720599639&width=1920"
+  },
+  {
+    "name": "ND75 Aluminum",
+    "switch": "Tactile",
+    "price": "379",
+    "img": "https://keygem.com/cdn/shop/files/ND75_White_01.jpg?v=1716803017&width=1920"
+  },
+  {
+    "name": "Work Nomad",
+    "switch": "Clicky",
+    "price": "199",
+    "img": "https://keygem.com/cdn/shop/files/Nomad-Atom4.102.png?v=1710846496&width=1920"
+  },
+  {
+    "name": "Opus 1 ReFit V2",
+    "switch": "Linear",
+    "price": "500",
+    "img": "https://keygem.com/cdn/shop/files/Zoom75_HEModule_Top_EE_Black.png?v=1707313972&width=1920"
+  },
+  {
+    "name": "ZOOM65 V3",
+    "switch": "Linear",
+    "price": "220",
+    "img": "https://keygem.com/cdn/shop/files/Zoom65v3_NoTailLight_Black.jpg?v=1718695429&width=3840"
+  }
+]

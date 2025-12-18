@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+    <title>SD-TA-003 - Switch Wiki</title>
+  </head>
+  <script
+    src="https://kit.fontawesome.com/0befa1bd60.js"
+    crossorigin="anonymous"
+  ></script>
+  <script>
+    const toggleMenu = () => {
+      document.getElementById("navMenu").classList.toggle("active");
+    };
+  </script>
+  <body>
+    <div class="topnav">
+      <a class="logo" href="index.html">Key Heaven</a>
+      <span class="hamburger" onclick="toggleMenu()">☰</span>
+      <div class="menu" id="navMenu">
+        <a href="catalogue.html">Catalogue</a>
+        <a href="switchwiki.html">Switch Wiki</a>
+        <a href="checkout.html">Checkout</a>
+        <a href="about.html">About</a>
+      </div>
+    </div>
+    <div class="centerDiv switchWiki">
+      <div class="gridLayout">
+        <h2>Different Switch Types</h2>
+        <div class="productGrid" id="productContainer"></div>
+      </div>
+    </div>
+    <script>
+      fetch("/src/switches.json")
+        .then((res) => res.json())
+        .then((products) => {
+          const container = document.getElementById("productContainer");
+          container.innerHTML = products
+            .map((product) => {
+              return `
+            <div class="switch">
+              <img src="${product.img}"/>
+              <h3>${product.name}</h3>
+              <p class="switch-description">${product.desc}</p>
+              <button class="cartBtn" data-sound="${product.sound}"><i class="fa-solid fa-play"></i></button>
+            </div>
+            `;
+            })
+            .join("");
+
+          let currentAudio;
+          document.querySelectorAll(".cartBtn").forEach((btn) => {
+            btn.addEventListener("click", () => {
+              if (currentAudio) {
+                //pause audio if pressing on new
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+              }
+              currentAudio = new Audio(btn.dataset.sound);
+              currentAudio.play();
+            });
+          });
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Linear",
+        "img": "https://www.thekeyboardco.com/blog/wp-content/uploads/2012/10/Red.gif",
+        "desc": "Linear switches provide a smooth and consistent keystroke from top to bottom with no bump or click. They’re preferred by gamers and fast typists because the key press feels quick and uninterrupted. They are typically quiet, require little force variation, and offer a very predictable feel.",
+        "sound": "./src/linear.wav"
+    },
+    {
+        "name": "Tactile",
+        "img": "https://www.thekeyboardco.com/blog/wp-content/uploads/2012/10/Brown.gif",
+        "desc": "Tactile switches have a noticeable bump partway through the key press. This bump acts as feedback to let you know the key has actuated, without needing to bottom out. They are great for both typing and general use because they provide physical confirmation with each keystroke while remaining relatively quiet.",
+        "sound": "./src/tactile.wav"
+    },
+    {
+        "name": "Clicky",
+        "img": "https://www.thekeyboardco.com/blog/wp-content/uploads/2012/10/Blue.gif",
+        "desc": "Clicky switches feature both a tactile bump and an audible click when actuated. The sound and feel are very pronounced, giving strong feedback with every key press. They are popular among users who enjoy a lively, typewriter-like experience, but can be loud in shared spaces.",
+        "sound": "./src/clicky.wav"
+    }
+]

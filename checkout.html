@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/styles.css" />
+    <link
+      href="
+https://cdn.jsdelivr.net/npm/notyf-js@2.1.2/dist/notyf.min.css
+"
+      rel="stylesheet"
+    />
+    <link href="/src/toast.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+    <title>SD-TA-003 - Checkout</title>
+  </head>
+  <script>
+    const toggleMenu = () => {
+      document.getElementById("navMenu").classList.toggle("active");
+    };
+  </script>
+  <body>
+    <div class="topnav">
+      <a class="logo" href="index.html">Key Heaven</a>
+      <span class="hamburger" onclick="toggleMenu()">☰</span>
+      <div class="menu" id="navMenu">
+        <a href="catalogue.html">Catalogue</a>
+        <a href="switchwiki.html">Switch Wiki</a>
+        <a href="checkout.html">Checkout</a>
+        <a href="about.html">About</a>
+      </div>
+    </div>
+    <div class="centerDiv checkoutPage">
+      <div class="gridLayout">
+        <h2>Checkout</h2>
+        <div class="checkoutLayout">
+          <div class="checkoutContainer aboutEntry">
+            <h3>Billing Details</h3>
+            <form class="checkoutForm">
+              <div class="formGrid">
+                <div class="field">
+                  <label for="fullName">Full Name</label>
+                  <input id="fullName" placeholder="James Bond" required />
+                </div>
+                <div class="field">
+                  <label for="email">Email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    placeholder="james@bond.com"
+                    required
+                  />
+                </div>
+                <div class="field full">
+                  <label for="address">Address</label>
+                  <input
+                    id="address"
+                    placeholder="10 Hazelbury Street"
+                    required
+                  />
+                </div>
+                <div class="field">
+                  <label for="city">City</label>
+                  <input id="city" placeholder="Dublin" required />
+                </div>
+                <div class="field">
+                  <label for="eircode">Eircode</label>
+                  <input id="eircode" placeholder="D12HN34" required />
+                </div>
+                <div class="field full">
+                  <label for="card">Card Number</label>
+                  <input id="card" placeholder="1234 5678 9012 3456" required />
+                </div>
+                <div class="field">
+                  <label for="expiry">Expiry</label>
+                  <input
+                    id="expiry"
+                    placeholder="MM/YY"
+                    maxlength="5"
+                    inputmode="numeric"
+                    autocomplete="cc-exp"
+                    required
+                  />
+                </div>
+                <div class="field">
+                  <label for="cvv">CVV</label>
+                  <input id="cvv" placeholder="123" required />
+                </div>
+              </div>
+              <button
+                type="submit"
+                class="cartBtn"
+                onClick="shoppingCart(event)"
+              >
+                Place Order
+              </button>
+            </form>
+          </div>
+          <aside class="checkoutSummary aboutEntry">
+            <h3>Order Summary</h3>
+            <div id="orderSummary"></div>
+            <div class="priceRow">
+              <p>Subtotal</p>
+              <p id="subTotal">€0</p>
+            </div>
+            <div class="priceRow">
+              <p>Shipping</p>
+              <p id="shippingPrice">€20</p>
+            </div>
+            <div class="totalPrice">
+              <p>Total</p>
+              <p id="totalPrice">€0</p>
+            </div>
+            <!-- <button class="cartBtn" onClick="shoppingCart()">
+              [DEBUG] Clear Cart
+            </button> -->
+          </aside>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/notyf-js@2.1.2/dist/notyf.min.js"></script>
+    <script src="src/toast.js"></script>
+    <script>
+      let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      const shippingCost = 20;
+      const notyf = new Notyf();
+      //form validation
+      const name = document.getElementById("fullName");
+      const email = document.getElementById("email");
+      const address = document.getElementById("address");
+      const city = document.getElementById("city");
+      const eircode = document.getElementById("eircode");
+      const cardNumber = document.getElementById("card");
+      const cardExpiry = document.getElementById("expiry");
+      const cardCvv = document.getElementById("cvv");
+
+      const shoppingCart = (event) => {
+        event.preventDefault();
+        if (cart.length === 0) {
+          notyf.alert(
+            "You must have at least one product in the cart before making an order!"
+          );
+          return;
+        } else if (
+          name.value.trim() === "" ||
+          email.value.trim() === "" ||
+          address.value.trim() === "" ||
+          city.value.trim() === "" ||
+          eircode.value.trim() === "" ||
+          cardNumber.value.trim() === "" ||
+          cardExpiry.value.trim() === "" ||
+          cardCvv.value.trim() === ""
+        ) {
+          notyf.alert(
+            "Please fill out all the required fields before placing your order."
+          );
+          return;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const cardNumberRegex = /^\d{16}$/;
+        const expiryRegex = /^(0[1-9]|1[0-2])\/\d{2}$/;
+        const cvvRegex = /^\d{3}$/;
+
+        if (!emailRegex.test(email.value.trim())) {
+          notyf.alert("Please enter a valid email address.");
+          return;
+        }
+        if (!cardNumberRegex.test(cardNumber.value.trim())) {
+          notyf.alert("Please enter a valid card number.");
+          return;
+        }
+        if (!expiryRegex.test(cardExpiry.value.trim())) {
+          notyf.alert("Please enter a valid expiry date.");
+          return;
+        }
+        if (!cvvRegex.test(cardCvv.value.trim())) {
+          notyf.alert("Please enter a valid CVV number.");
+          return;
+        }
+
+        notyf.confirm("Order placed!");
+        localStorage.clear();
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
+      };
+
+      const loadCart = () => {
+        const summaryContainer = document.getElementById("orderSummary");
+        const subTotalLabel = document.getElementById("subTotal");
+        const totalPriceLabel = document.getElementById("totalPrice");
+        const shippingLabel = document.getElementById("shippingPrice");
+
+        if (cart.length === 0) {
+          summaryContainer.innerHTML = "<p>Your cart is empty.</p>";
+          subTotalLabel.textContent = "€0";
+          totalPriceLabel.textContent = "€0";
+          shippingLabel.textContent = "€0";
+          return;
+        }
+
+        summaryContainer.innerHTML = cart
+          .map(
+            (keyboard) => `
+            <div class="productItem">
+              <img src="${keyboard.img}" />
+              <div class="productDetails">
+                <h4>${keyboard.name}</h4>
+                <p>€${keyboard.price}</p>
+              </div>
+            </div>
+          `
+          )
+          .join("");
+
+        const subTotal = cart.reduce(
+          (sum, item) => sum + Number(item.price),
+          0
+        );
+        const total = subTotal + shippingCost;
+
+        // document.getElementById("totalPrice").textContent = "€" + total;
+        subTotalLabel.textContent = "€" + subTotal;
+        totalPriceLabel.textContent = "€" + total;
+      };
+
+      const expiryInput = document.getElementById("expiry");
+      expiryInput.addEventListener("input", (e) => {
+        let value = e.target.value.replace(/\D/g, ""); // numbers only
+        if (value.length >= 3) {
+          value = value.slice(0, 2) + "/" + value.slice(2, 4);
+        }
+
+        e.target.value = value;
+      });
+
+      document.addEventListener("DOMContentLoaded", loadCart);
+    </script>
+  </body>
+</html>

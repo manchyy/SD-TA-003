@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/styles.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/notyf-js@2.1.2/dist/notyf.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>SD-TA-003 - Catalogue</title>
+  </head>
+  <script
+    src="https://kit.fontawesome.com/0befa1bd60.js"
+    crossorigin="anonymous"
+  ></script>
+  <script>
+    const toggleMenu = () => {
+      document.getElementById("navMenu").classList.toggle("active");
+    };
+  </script>
+  <body>
+    <div class="topnav">
+      <a class="logo" href="index.html">Key Heaven</a>
+      <span class="hamburger" onclick="toggleMenu()">☰</span>
+      <div class="menu" id="navMenu">
+        <a href="catalogue.html">Catalogue</a>
+        <a href="switchwiki.html">Switch Wiki</a>
+        <a href="checkout.html">Checkout</a>
+        <a href="about.html">About</a>
+      </div>
+    </div>
+    <div class="centerDiv cataloguePage">
+      <div class="gridLayout">
+        <h2>Our Products</h2>
+        <div class="productGrid" id="productContainer"></div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/notyf-js@2.1.2/dist/notyf.min.js"></script>
+    <script>
+      const notyf = new Notyf();
+      let productArray = [];
+
+      // fetch keyboards
+      fetch("/src/keyboards.json")
+        .then((res) => res.json())
+        .then((products) => {
+          productArray = products;
+          const container = document.getElementById("productContainer");
+          container.innerHTML = products
+            .map((product, index) => {
+              return `
+                <div class="product">
+                  <img src="${product.img}" alt="${product.name}" />
+                  <h3>${product.name}</h3>
+                  <p>${product.switch} Switches</p>
+                  <p>€${product.price}</p>
+                  <button class="cartBtn" onClick="addToCart(${index})"><i class="fa-solid fa-basket-shopping"></i></button>
+                </div>
+              `;
+            })
+            .join("");
+        });
+
+      // add to cart
+      const addToCart = (index) => {
+        let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+        cart.push(productArray[index]);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        notyf.confirm(productArray[index].name + " added to cart!");
+      };
+    </script>
+  </body>
+</html>

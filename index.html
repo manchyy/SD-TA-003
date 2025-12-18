@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+    <title>SD-TA-003 - Home</title>
+  </head>
+  <script>
+    const toggleMenu = () => {
+      document.getElementById("navMenu").classList.toggle("active");
+    };
+  </script>
+  <body>
+    <div class="topnav">
+      <a class="logo" href="index.html">Key Heaven</a>
+      <span class="hamburger" onclick="toggleMenu()">☰</span>
+      <div class="menu" id="navMenu">
+        <a href="catalogue.html">Catalogue</a>
+        <a href="switchwiki.html">Switch Wiki</a>
+        <a href="checkout.html">Checkout</a>
+        <a href="about.html">About</a>
+      </div>
+    </div>
+    <div class="centerDiv">
+      <div class="gridLayout fade-in">
+        <div class="slideshow-container">
+          <h2>Hobbyist Mechanical Keyboard Store.</h2>
+          <div class="mySlides fade">
+            <img src="/src/h1.webp" style="width: 100%" />
+          </div>
+          <div class="mySlides fade">
+            <img src="/src/h2.webp" style="width: 100%" />
+          </div>
+          <div class="mySlides fade">
+            <img src="/src/h3.webp" style="width: 100%" />
+          </div>
+          <a class="cartBtn" href="catalogue.html">Browse Products</a>
+        </div>
+      </div>
+    </div>
+    <script>
+      let slideIndex = 0;
+      const showSlides = () => {
+        let i;
+        let slides = document.getElementsByClassName("mySlides");
+        for (i = 0; i < slides.length; i++) {
+          slides[i].style.display = "none";
+        }
+        slideIndex++;
+        if (slideIndex > slides.length) {
+          slideIndex = 1;
+        }
+        slides[slideIndex - 1].style.display = "block";
+        setTimeout(showSlides, 2000);
+      };
+      showSlides();
+    </script>
+  </body>
+</html>
